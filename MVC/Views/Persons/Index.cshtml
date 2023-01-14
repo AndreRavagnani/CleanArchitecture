@@ -1,0 +1,19 @@
+﻿@model Application.ViewModels.PersonViewModel
+
+<table id="person" class="table table-bordered table-hover">
+    <thead>
+        <tr class="">
+            <th>FirstName</th>
+            <th>LastName</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var person in Model.People)
+        {
+            <tr style="height: 60px;">
+                <td>@person.FirstName</td>
+                <td>@person.LastName</td>
+            </tr>
+        }
+    </tbody>
+</table>

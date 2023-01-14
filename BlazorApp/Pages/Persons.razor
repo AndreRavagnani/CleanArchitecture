@@ -1,0 +1,45 @@
+﻿@page "/persons"
+@using Application.Interfaces;
+@using Application.ViewModels;
+@using BlazorApp.Data
+@inject IPersonService _personService
+
+<PageTitle>Persons</PageTitle>
+
+<h1>Persons</h1>
+
+<p>This component demonstrates get data from a service.</p>
+
+@if (personVM == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>FirstName</th>
+                <th>LastName</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var person in personVM.People)
+            {
+                <tr>
+                    <td>@person.FirstName</td>
+                    <td>@person.LastName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private PersonViewModel personVM;
+
+    protected override async Task OnInitializedAsync()
+    {
+        personVM = _personService.GetPersons();
+    }
+}
