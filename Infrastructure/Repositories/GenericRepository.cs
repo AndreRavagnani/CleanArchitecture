@@ -2,7 +2,6 @@
 using Domain.Primitive;
 using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
-using System.Runtime.CompilerServices;
 
 namespace Data.Repositories
 {

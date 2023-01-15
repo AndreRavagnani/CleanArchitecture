@@ -1,25 +1,24 @@
 ﻿using Application.Interfaces;
-using Application.ViewModels;
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
-using System.Runtime.CompilerServices;
 
 namespace API.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class PersonsController : ControllerBase
-    {
-        private readonly IPersonService _personService;
 
-        public PersonsController(IPersonService personService)
+    public class PersonsController : GenericController<IPersonService, Person>
+    {
+        public PersonsController(IPersonService service) : base(service)
         {
-            _personService = personService;
         }
 
-        [HttpGet(Name = "GetPersons")]
-        public PersonViewModel Get()
+        [HttpGet("GetPersons")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetPersons()
         {
-            return _personService.GetPersons();
+            var data = Service.GetPersons();
+            if (data == null) return Ok();
+            return Ok(data);
         }
     }
 }
